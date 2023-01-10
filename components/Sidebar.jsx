@@ -6,32 +6,35 @@ import { BiHeartSquare } from "react-icons/bi";
 
 const Sidebar = () => {
   return (
-    <div className="bg-black fixed left-0 top-0 bottom-0 w-64 text-white px-6">
-      {/* Spotify Logo */}
-      <div className="flex items-center text-green-500 mt-8 mb-10">
+    <div className="bg-black top-0   bottom-0 md:w-64 w-24 text-white px-6  -z-10 hidden sm:inline fixed">
+      <div className="flex items-center text-green-500 mt-8 mb-6">
         <Image src="/img/logo.png" alt="spotify-logo" height={50} width={50} />
-        <p className="text-3xl ml-2 font-semibold">Spotify</p>
+        <p className="text-3xl ml-2 font-semibold hidden md:inline">Spotify</p>
       </div>
 
-      <div className="flex flex-col gap-4 mb-10">
+      <div className="flex flex-col gap-4 mb-8 mt-4">
         <div className="flex items-center gap-4 text-lg">
-          <AiFillHome className="text-3xl" /> <p>Home</p>
+          <AiFillHome className="text-3xl" />{" "}
+          <p className="hidden md:inline">Home</p>
         </div>
         <div className="flex items-center gap-4 text-lg text-gray-400">
-          <AiOutlineSearch className="text-3xl" /> <p>Search</p>
+          <AiOutlineSearch className="text-3xl" />{" "}
+          <p className="hidden md:inline">Search</p>
         </div>
         <div className="flex items-center gap-4 text-lg text-gray-400">
-          <VscFolderLibrary className="text-3xl" /> <p>Your Library</p>
+          <VscFolderLibrary className="text-3xl" />{" "}
+          <p className="hidden md:inline">Your Library</p>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 mb-10">
+      <div className="flex flex-col gap-4 mb-2">
         <div className="flex items-center gap-4 text-lg text-gray-400">
-          <BsFillPlusSquareFill className="text-3xl" /> <p>Create Playlist</p>
+          <BsFillPlusSquareFill className="text-3xl" />{" "}
+          <p className="hidden md:inline">Create Playlist</p>
         </div>
         <div className="flex items-center gap-4 text-lg text-gray-400">
-          <BiHeartSquare className="text-4xl text-[#67ca93]" />{" "}
-          <p>Liked Songs</p>
+          <BiHeartSquare className="text-4xl bg-[#2e153a] text-[#43a355]" />{" "}
+          <p className="hidden md:inline">Liked Songs</p>
         </div>
       </div>
     </div>
