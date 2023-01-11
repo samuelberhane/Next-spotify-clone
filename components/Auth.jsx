@@ -1,10 +1,94 @@
 import Head from "next/head";
-import Image from "next/image";
-import { BsFacebook } from "react-icons/bs";
-import { FcGoogle } from "react-icons/fc";
-import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../firebase/config";
+import { AuthContent, AuthForm } from ".";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+// Toast Option
+const toastOptions = {
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+};
 
 const Auth = ({ head }) => {
+  const [inputData, setInputData] = useState({
+    email: "",
+    confirmEmail: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const router = useRouter();
+
+  // Check Empty Input Field
+  const checkInputs = () => {
+    const { email, confirmEmail, password, confirmPassword } = inputData;
+    if (email === "")
+      toast.error("You need to enter your email.", toastOptions);
+    if (confirmEmail === "" && head === "Signup")
+      toast.error("You need to confirm your email.", toastOptions);
+    if (password === "")
+      toast.error("You need to enter a password.", toastOptions);
+    if (confirmPassword === "" && head === "Signup")
+      toast.error("You need to confirm your email.", toastOptions);
+  };
+
+  // Handle Form Submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // check inputs
+    checkInputs();
+
+    const { email, confirmEmail, password, confirmPassword } = inputData;
+
+    // Signup User
+    if (head === "Signup") {
+      if (email !== confirmEmail)
+        toast.error(
+          "email and confirm email should be the same.",
+          toastOptions
+        );
+      else if (password !== confirmPassword)
+        toast.error(
+          "password and confirm password should be the same.",
+          toastOptions
+        );
+      else {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            toast.success("User Created Successufully.", toastOptions);
+            router.push("/");
+          })
+          .catch((error) => {
+            toast.error(error.message, toastOptions);
+          });
+      }
+    } else {
+      // Login User
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          router.push("/");
+        })
+        .catch((error) => {
+          toast.error(error.message, toastOptions);
+        });
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -13,122 +97,18 @@ const Auth = ({ head }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="text-center flex flex-col items-center justify-center">
-        <div className="flex items-center text-green-500 my-6">
-          <Image
-            src="/img/logo.png"
-            alt="spotify-logo"
-            height={40}
-            width={40}
+      <>
+        <main className="text-center flex flex-col items-center justify-center">
+          <AuthContent head={head} />
+          <AuthForm
+            head={head}
+            handleSubmit={handleSubmit}
+            inputData={inputData}
+            setInputData={setInputData}
           />
-          <p className="text-3xl md:text-4xl ml-2 font-bold">Spotify</p>
-        </div>
-
-        <h1 className="font-bold text-3xl md:text-5xl w-[300px] md:w-[400px] mb-8">
-          {head === "Login"
-            ? "To continue, log in to Spotify."
-            : "Sign up for free to start listening."}
-        </h1>
-
-        <button className="authBtn bg-blue-600 text-white mb-4">
-          <BsFacebook className="text-2xl" />{" "}
-          <span>{head === "Login" ? "Continue" : "Sign up"} with Facebook</span>
-        </button>
-
-        <button className="authBtn border-2 text-gray-600">
-          <FcGoogle className="text-2xl" />{" "}
-          <span>{head === "Login" ? "Continue" : "Sign up"} with Google</span>
-        </button>
-
-        <div className="flex items-center gap-2 mt-5 justify-center">
-          <div className="line" />
-          <p className="text-xl">or</p>
-          <div className="line" />
-        </div>
-
-        <h2 className="mt-2 font-bold text-lg whitespace-nowrap mb-3">
-          {head === "Login" ? "Login" : "Sign up"} with your email address
-        </h2>
-
-        <form>
-          <div className="formGroup">
-            <label htmlFor="email">
-              {head === "Login" ? "Email address" : "What's your email?"}
-            </label>
-            <input
-              className="input"
-              type="email"
-              id="email"
-              placeholder="Enter your email."
-            />
-          </div>
-          {head === "Signup" && (
-            <div className="formGroup">
-              <label htmlFor="confirmEmail">Confirm your email</label>
-              <input
-                className="input"
-                type="email"
-                id="confirmEmail"
-                placeholder="Enter your email again."
-              />
-            </div>
-          )}
-          <div className="formGroup">
-            <label htmlFor="password">
-              {head === "Login" ? "Password" : "Create a password"}
-            </label>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              placeholder={
-                head === "Login" ? "Password." : "Create a password."
-              }
-            />
-          </div>
-          {head === "Signup" && (
-            <div className="formGroup">
-              <label htmlFor="confirmPassword">Confirm your password</label>
-              <input
-                className="input"
-                type="password"
-                id="confirmPassword"
-                placeholder="Enter your password again."
-              />
-            </div>
-          )}
-          <button
-            className="bg-green-400 px-10 py-3 mb-2 rounded-[30px] text-lg  font-bold hover:scale-110"
-            type="submit"
-          >
-            {head === "Login" ? "LOG IN" : "SIGN UP"}
-          </button>
-          {head === "Signup" && (
-            <p className="mb-8 text-lg">
-              Have an account?
-              <Link
-                href="/auth/login"
-                className="underline text-green-800 hover:text-green-600"
-              >
-                Log in
-              </Link>
-            </p>
-          )}
-
-          {head === "Login" && (
-            <div>
-              <h2 className="font-bold text-lg">Don&#39;t have an account?</h2>
-              <button
-                className="mt-3 mb-8 authBtn border-2 text-gray-600"
-                type="button"
-              >
-                <Link href="/auth/signup">SIGN UP FOR SPOTIFY</Link>
-              </button>
-            </div>
-          )}
-        </form>
-      </main>
+        </main>
+        <ToastContainer />
+      </>
     </div>
   );
 };

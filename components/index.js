@@ -6,5 +6,18 @@ import Feeds from "./Feeds";
 import Card from "./Card";
 import Feed from "./Feed";
 import Auth from "./Auth";
+import AuthContent from "./AuthContent";
+import AuthForm from "./AuthForm";
 
-export { Sidebar, Header, MenuSidebar, Signup, Feeds, Card, Feed, Auth };
+export {
+  Sidebar,
+  Header,
+  MenuSidebar,
+  Signup,
+  Feeds,
+  Card,
+  Feed,
+  Auth,
+  AuthContent,
+  AuthForm,
+};
