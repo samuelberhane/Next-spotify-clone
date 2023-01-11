@@ -7,7 +7,7 @@ const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>
-      <div className="flex items-center justify-between px-4 bg-[#1b1b25] py-2 text-white h-16 z-50 sm:ml-24 md:ml-64">
+      <div className="flex items-center justify-between px-4 bg-[rgba(6,6,7,0.85)] py-2 text-white h-16 z-50 sm:ml-24 md:ml-56">
         <div className="flex items-center text-green-500 sm:hidden">
           <Image
             src="/img/logo.png"

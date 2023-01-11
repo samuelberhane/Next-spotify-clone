@@ -6,7 +6,7 @@ import { BiHeartSquare } from "react-icons/bi";
 
 const Sidebar = () => {
   return (
-    <div className="bg-black top-0   bottom-0 md:w-64 w-24 text-white px-6  -z-10 hidden sm:inline fixed">
+    <div className="bg-black top-0   bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:inline fixed">
       <div className="flex items-center text-green-500 mt-8 mb-6">
         <Image src="/img/logo.png" alt="spotify-logo" height={50} width={50} />
         <p className="text-3xl ml-2 font-semibold hidden md:inline">Spotify</p>

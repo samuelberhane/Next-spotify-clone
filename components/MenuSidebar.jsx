@@ -9,10 +9,10 @@ const MenuSidebar = ({ showSidebar }) => {
     <div
       className={`bg-black top-16 ${
         showSidebar ? "showSidebar" : "hideSidebar"
-      }  bottom-0 w-64 text-white px-6  fixed sm:hidden flex flex-col`}
+      }  bottom-0 w-56 text-white  fixed sm:hidden flex flex-col z-30`}
     >
       <div>
-        <div className="flex flex-col gap-4 mb-10 mt-4">
+        <div className="flex flex-col gap-4 mb-10 mt-4 px-4">
           <div className="flex items-center gap-4 text-lg">
             <AiFillHome className="text-3xl" /> <p>Home</p>
           </div>
@@ -24,7 +24,7 @@ const MenuSidebar = ({ showSidebar }) => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 mb-10">
+        <div className="flex flex-col gap-4 mb-10 px-4">
           <div className="flex items-center gap-4 text-lg text-gray-400">
             <BsFillPlusSquareFill className="text-3xl" /> <p>Create Playlist</p>
           </div>
@@ -37,7 +37,7 @@ const MenuSidebar = ({ showSidebar }) => {
 
       <div className="flex-grow flex flex-col justify-end pb-2">
         <div></div>
-        <div className="flex gap-2 items-center text-lg font-bold ">
+        <div className="flex gap-1 items-center text-lg font-bold px-2">
           <button className="text-gray-300  border-none rounded-lg py-2 hover:scale-105 w-1/2 whitespace-nowrap hover:text-white">
             Sign up
           </button>

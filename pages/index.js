@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Header, Sidebar } from "../components";
+import { Feeds, Header, Sidebar } from "../components";
 
 export default function Home() {
   return (
@@ -16,6 +16,10 @@ export default function Home() {
 
         {/* Header */}
         <Header />
+      
+
+        {/***** Feeds *****/}
+        <Feeds />
       </main>
     </>
   );
