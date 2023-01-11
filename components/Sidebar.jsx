@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscFolderLibrary } from "react-icons/vsc";
 import { BsFillPlusSquareFill } from "react-icons/bs";

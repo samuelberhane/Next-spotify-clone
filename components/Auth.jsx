@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { AuthContent, AuthForm } from ".";
@@ -89,6 +91,19 @@ const Auth = ({ head }) => {
     }
   };
 
+  // Google Signup
+  const handleGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        router.push("/");
+      })
+      .catch((error) => {
+        toast.error(error.message, toastOptions);
+      });
+  };
+
   return (
     <div>
       <Head>
@@ -99,7 +114,7 @@ const Auth = ({ head }) => {
       </Head>
       <>
         <main className="text-center flex flex-col items-center justify-center">
-          <AuthContent head={head} />
+          <AuthContent head={head} handleGoogle={handleGoogle} />
           <AuthForm
             head={head}
             handleSubmit={handleSubmit}

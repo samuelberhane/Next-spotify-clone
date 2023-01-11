@@ -1,10 +1,14 @@
-import Image from "next/image";
+import Link from "next/link";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscFolderLibrary } from "react-icons/vsc";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
+import { FaUserAlt } from "react-icons/fa";
+import Image from "next/image";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/config";
 
-const MenuSidebar = ({ showSidebar }) => {
+const MenuSidebar = ({ showSidebar, user }) => {
   return (
     <div
       className={`bg-black top-16 ${
@@ -37,13 +41,44 @@ const MenuSidebar = ({ showSidebar }) => {
 
       <div className="flex-grow flex flex-col justify-end pb-2">
         <div></div>
-        <div className="flex gap-1 items-center text-lg font-bold px-2">
-          <button className="text-gray-300  border-none rounded-lg py-2 hover:scale-105 w-1/2 whitespace-nowrap hover:text-white">
-            Sign up
-          </button>
-          <button className="text-black bg-white border-none rounded-3xl px-6 py-2 hover:scale-105 w-1/2">
-            Log in
-          </button>
+        <div className="flex gap-1 items-center justify-between text-lg font-bold px-2">
+          {!user ? (
+            <>
+              <button className="text-gray-300  border-none rounded-lg py-2 hover:scale-105  whitespace-nowrap hover:text-white">
+                <Link href="/auth/signup">Sign up</Link>
+              </button>
+              <button className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105 ">
+                <Link href="/auth/login">Log in</Link>
+              </button>
+            </>
+          ) : (
+            <div className="flex flex-col  gap-2 items-start">
+              <div className="text-[15px] bg-black pr-4 rounded-2xl flex items-center gap-2">
+                {user.photoURL ? (
+                  <div className="relative h-8 w-8 rounded-full">
+                    <Image
+                      src={user.photoURL}
+                      alt="user"
+                      layout="fill"
+                      className="rounded-full"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-8 w-8 rounded-full bg-[#171a19] flex items-center justify-center">
+                    <FaUserAlt />
+                  </div>
+                )}
+
+                <p>{user.displayName || user.email}</p>
+              </div>
+              <button
+                className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
+                onClick={() => signOut(auth)}
+              >
+                <Link href="/auth/login">Log out</Link>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

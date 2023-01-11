@@ -1,14 +1,22 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
+import Link from "next/link";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 
-const AuthContent = ({ head }) => {
+const AuthContent = ({ head, handleGoogle }) => {
   return (
     <>
-      <div className="flex items-center text-green-500 my-6">
-        <Image src="/img/logo.png" alt="spotify-logo" height={40} width={40} />
-        <p className="text-3xl md:text-4xl ml-2 font-bold">Spotify</p>
-      </div>
+      <Link href="/">
+        <div className="flex items-center text-green-500 my-6">
+          <Image
+            src="/img/logo.png"
+            alt="spotify-logo"
+            height={40}
+            width={40}
+          />
+          <p className="text-3xl md:text-4xl ml-2 font-bold">Spotify</p>
+        </div>
+      </Link>
 
       <h1 className="font-bold text-3xl md:text-5xl w-[300px] md:w-[400px] mb-8">
         {head === "Login"
@@ -21,7 +29,7 @@ const AuthContent = ({ head }) => {
         <span>{head === "Login" ? "Continue" : "Sign up"} with Facebook</span>
       </button>
 
-      <button className="authBtn border-2 text-gray-600">
+      <button className="authBtn border-2 text-gray-600" onClick={handleGoogle}>
         <FcGoogle className="text-2xl" />{" "}
         <span>{head === "Login" ? "Continue" : "Sign up"} with Google</span>
       </button>

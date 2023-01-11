@@ -1,7 +1,27 @@
 import Head from "next/head";
 import { Feeds, Header, Sidebar } from "../components";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/config";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+      } else {
+        setUser(null);
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  if (loading) return "";
   return (
     <>
       <Head>
@@ -15,8 +35,7 @@ export default function Home() {
         <Sidebar />
 
         {/* Header */}
-        <Header />
-      
+        <Header user={user} />
 
         {/***** Feeds *****/}
         <Feeds />
