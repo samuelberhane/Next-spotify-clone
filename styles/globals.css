@@ -9,4 +9,16 @@
   .hideSidebar {
     @apply left-[-999px]  transition-all duration-[3s];
   }
+  .authBtn {
+    @apply flex gap-4 font-semibold justify-center whitespace-nowrap items-center px-3 py-4 rounded-[20px] w-[300px] md:w-[380px] text-xl hover:scale-105;
+  }
+  .line {
+    @apply w-[140px] md:w-[170px] h-[0.1rem] bg-gray-400;
+  }
+  .formGroup {
+    @apply font-semibold flex flex-col gap-2 mb-4 items-start w-[320px] md:w-[430px];
+  }
+  .input {
+    @apply w-full rounded-md px-4 py-2 border-[3px];
+  }
 }
