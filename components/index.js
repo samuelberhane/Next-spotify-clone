@@ -11,6 +11,7 @@ import AuthForm from "./AuthForm";
 import Loader from "./Loader";
 import SignupFooter from "./SignupFooter";
 import SignupModal from "./SignupModal";
+import Submenu from "./Submenu";
 
 export {
   Sidebar,
@@ -26,4 +27,5 @@ export {
   Loader,
   SignupFooter,
   SignupModal,
+  Submenu,
 };

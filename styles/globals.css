@@ -21,4 +21,9 @@
   .input {
     @apply w-full rounded-md px-4 py-2 border-[3px];
   }
+  .arrow {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    border-right: 20px solid #06568f;
+  }
 }
