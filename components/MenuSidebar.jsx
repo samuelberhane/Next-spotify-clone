@@ -68,14 +68,13 @@ const MenuSidebar = ({ showSidebar, user }) => {
                     <FaUserAlt />
                   </div>
                 )}
-
                 <p>{user.displayName || user.email}</p>
               </div>
               <button
                 className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
                 onClick={() => signOut(auth)}
               >
-                <Link href="/auth/login">Log out</Link>
+                Log out
               </button>
             </div>
           )}

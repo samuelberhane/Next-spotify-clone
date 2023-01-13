@@ -11,6 +11,7 @@ import { auth } from "../firebase/config";
 import { AuthContent, AuthForm } from ".";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Loader } from ".";
 
 // Toast Option
 const toastOptions = {
@@ -25,13 +26,14 @@ const toastOptions = {
 };
 
 const Auth = ({ head }) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [inputData, setInputData] = useState({
     email: "",
     confirmEmail: "",
     password: "",
     confirmPassword: "",
   });
-  const router = useRouter();
 
   // Check Empty Input Field
   const checkInputs = () => {
@@ -49,12 +51,9 @@ const Auth = ({ head }) => {
   // Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // check inputs
     checkInputs();
-
     const { email, confirmEmail, password, confirmPassword } = inputData;
-
     // Signup User
     if (head === "Signup") {
       if (email !== confirmEmail)
@@ -68,26 +67,28 @@ const Auth = ({ head }) => {
           toastOptions
         );
       else {
+        setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            const user = userCredential.user;
             toast.success("User Created Successufully.", toastOptions);
             router.push("/");
           })
           .catch((error) => {
             toast.error(error.message, toastOptions);
-          });
+          })
+          .finally(setLoading(false));
       }
     } else {
       // Login User
+      setLoading(true);
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
           router.push("/");
         })
         .catch((error) => {
           toast.error(error.message, toastOptions);
-        });
+        })
+        .finally(setLoading(false));
     }
   };
 
@@ -113,6 +114,7 @@ const Auth = ({ head }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
+        {loading && <Loader />}
         <main className="text-center flex flex-col items-center justify-center">
           <AuthContent head={head} handleGoogle={handleGoogle} />
           <AuthForm

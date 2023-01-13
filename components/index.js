@@ -8,6 +8,7 @@ import Feed from "./Feed";
 import Auth from "./Auth";
 import AuthContent from "./AuthContent";
 import AuthForm from "./AuthForm";
+import Loader from "./Loader";
 
 export {
   Sidebar,
@@ -20,4 +21,5 @@ export {
   Auth,
   AuthContent,
   AuthForm,
+  Loader,
 };

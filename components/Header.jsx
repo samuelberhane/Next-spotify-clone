@@ -9,7 +9,7 @@ import { FaUserAlt } from "react-icons/fa";
 
 const Header = ({ user }) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  console.log(user);
+
   return (
     <>
       <div className="flex items-center justify-between px-4 bg-[rgba(6,6,7,0.85)] py-2 text-white h-16 z-50 sm:ml-24 md:ml-56">
@@ -57,14 +57,13 @@ const Header = ({ user }) => {
                       <FaUserAlt />
                     </div>
                   )}
-
                   <p>{user.displayName || user.email}</p>
                 </div>
                 <button
                   className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
                   onClick={() => signOut(auth)}
                 >
-                  <Link href="/auth/login">Log out</Link>
+                  Log out
                 </button>
               </>
             )}
