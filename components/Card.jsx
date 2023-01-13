@@ -14,7 +14,9 @@ const Card = ({ data }) => {
           />
         </div>
         <div className="w-full mt-2">
-          <p className="font-bold text-xl">{title}</p>
+          <p className="font-bold text-xl">
+            {title.length < 19 ? title : title.slice(0, 18) + "..."}
+          </p>
           <p className="mt-1 text-gray-300">
             {text.length < 40 ? text : text.slice(0, 40) + "..."}
           </p>

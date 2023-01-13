@@ -9,6 +9,7 @@ import Auth from "./Auth";
 import AuthContent from "./AuthContent";
 import AuthForm from "./AuthForm";
 import Loader from "./Loader";
+import SignupFooter from "./SignupFooter";
 
 export {
   Sidebar,
@@ -22,4 +23,5 @@ export {
   AuthContent,
   AuthForm,
   Loader,
+  SignupFooter,
 };

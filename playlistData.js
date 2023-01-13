@@ -1,27 +1,27 @@
 export const playlistData = [
   {
-    image: "/img/feedImg6.jpeg",
-    title: "Peaceful Piano",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum labore debitis facere pariatur ratione?",
-  },
-  {
     image: "/img/feedImg7.jpeg",
-    title: "Peaceful Piano",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum labore debitis facere pariatur ratione?",
+    title: "Today's Top Hits",
+    text: "SZA is on top of the Hottest 50!",
   },
   {
     image: "/img/feedImg8.jpeg",
-    title: "Peaceful Piano",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum labore debitis facere pariatur ratione?",
+    title: "RapCaviar",
+    text: "New music by Gucci Mane, Kodak Black and Moneybagg Yo.",
+  },
+  {
+    image: "/img/feedImg6.jpeg",
+    title: "All Out 2010s",
+    text: "The biggest songs of the 2010s.",
   },
   {
     image: "/img/feedImg9.jpeg",
-    title: "Peaceful Piano",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum labore debitis facere pariatur ratione?",
+    title: "Rock Classics",
+    text: "Rock legends & epic songs that continue to inspire generations. Cover: Queen",
   },
   {
     image: "/img/feedImg10.jpeg",
-    title: "Peaceful Piano",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum labore debitis facere pariatur ratione?",
+    title: "Chill Hits",
+    text: "Kick back to the best new and recent chill hits.",
   },
 ];

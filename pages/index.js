@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Feeds, Header, Sidebar, Loader } from "../components";
+import { Feeds, Header, Sidebar, Loader, SignupFooter } from "../components";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useState, useEffect } from "react";
@@ -39,6 +39,9 @@ export default function Home() {
 
         {/***** Feeds *****/}
         <Feeds />
+
+        {/* Signup Footer Component */}
+        <SignupFooter />
       </main>
     </>
   );
