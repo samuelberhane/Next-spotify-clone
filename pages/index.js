@@ -1,12 +1,22 @@
 import Head from "next/head";
-import { Feeds, Header, Sidebar, Loader, SignupFooter } from "../components";
+import {
+  Feeds,
+  Header,
+  Sidebar,
+  Loader,
+  SignupFooter,
+  SignupModal,
+} from "../components";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useState, useEffect } from "react";
+import { selectShowModal } from "../redux/slice/authSlice";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const showModal = useSelector(selectShowModal);
 
   // Check User State
   useEffect(() => {
@@ -42,6 +52,9 @@ export default function Home() {
 
         {/* Signup Footer Component */}
         <SignupFooter />
+
+        {/* Signup Modal */}
+        {showModal && <SignupModal />}
       </main>
     </>
   );

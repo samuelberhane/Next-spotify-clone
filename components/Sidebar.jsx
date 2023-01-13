@@ -13,26 +13,26 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-4 mb-8 mt-4">
-        <div className="flex items-center gap-4 text-lg">
+        <div className="flex items-center gap-4 text-lg cursor-pointer">
           <AiFillHome className="text-3xl" />{" "}
           <p className="hidden md:inline">Home</p>
         </div>
-        <div className="flex items-center gap-4 text-lg text-gray-400">
+        <div className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer">
           <AiOutlineSearch className="text-3xl" />{" "}
           <p className="hidden md:inline">Search</p>
         </div>
-        <div className="flex items-center gap-4 text-lg text-gray-400">
+        <div className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer">
           <VscFolderLibrary className="text-3xl" />{" "}
           <p className="hidden md:inline">Your Library</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-4 mb-2">
-        <div className="flex items-center gap-4 text-lg text-gray-400">
+        <div className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer">
           <BsFillPlusSquareFill className="text-3xl" />{" "}
           <p className="hidden md:inline">Create Playlist</p>
         </div>
-        <div className="flex items-center gap-4 text-lg text-gray-400">
+        <div className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer">
           <BiHeartSquare className="text-4xl bg-[#2e153a] text-[#43a355]" />{" "}
           <p className="hidden md:inline">Liked Songs</p>
         </div>
