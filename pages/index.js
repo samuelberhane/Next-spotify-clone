@@ -3,35 +3,18 @@ import {
   Feeds,
   Header,
   Sidebar,
-  Loader,
   SignupFooter,
   SignupModal,
 } from "../components";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/config";
-import { useState, useEffect } from "react";
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
   const showModal = useSelector(selectShowModal);
+  const { data: session, status } = useSession();
+  console.log("session", session);
 
-  // Check User State
-  useEffect(() => {
-    setLoading(true);
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-    setLoading(false);
-  }, []);
-
-  if (loading) return <Loader />;
   return (
     <>
       <Head>
@@ -45,7 +28,7 @@ export default function Home() {
         <Sidebar />
 
         {/* Header */}
-        <Header user={user} />
+        <Header />
 
         {/***** Feeds *****/}
         <Feeds />

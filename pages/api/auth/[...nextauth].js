@@ -1,5 +1,5 @@
-import NextAuth from next-auth;
-import SpotifyProvider from next-auth/providers/spotify;
+import NextAuth from "next-auth";
+import SpotifyProvider from "next-auth/providers/spotify";
 
 /**
  * Takes a token, and returns a new token with updated
@@ -11,8 +11,8 @@ async function refreshAccessToken(token) {
     const url =
       "https://accounts.spotify.com/api/token?" +
       new URLSearchParams({
-        client_id: process.env.NEXT_PUBLIC_SPOTIFY_ID,
-        client_secret: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
         grant_type: "refresh_token",
         refresh_token: token.refreshToken,
       });
@@ -46,18 +46,19 @@ async function refreshAccessToken(token) {
   }
 }
 
-export const authOptions = {
-  // Configure one or more authentication providers
+export default NextAuth({
   providers: [
     SpotifyProvider({
-      clientId: process.env.PUBLIC_NEXT_SPOTIFY_ID,
-      clientSecret: process.env.PUBLIC_NEXT_SPOTIFY_SECRET,
-      authorization: `https://accounts.spotify.com/authorize?scope=user-read-email,playlist-read-private,playlist-read-collaborative,user-read-email,streaming,user-read-private,user-library-read,user-top-read,user-read-playback-state,user-modify-playback-state,user-read-currently-playing,user-read-recently-played,user-follow-read`
+      clientId: process.env.NEXT_PUBLIC_SPOTIFY_ID,
+      clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
+      authorization:
+        "https://accounts.spotify.com/authorize?scope=user-read-email,playlist-read-private,user-read-email,streaming,user-read-private,user-library-read,user-library-modify,user-read-playback-state,user-modify-playback-state,user-read-recently-played,user-follow-read",
     }),
   ],
   pages: {
-    singIn: /auth/signin,
+    signIn: "/auth/signin",
   },
+
   callbacks: {
     async jwt({ token, user, account }) {
       // Initial sign in
@@ -86,6 +87,4 @@ export const authOptions = {
       return session;
     },
   },
-};
-
-export default NextAuth(authOptions);
+});
