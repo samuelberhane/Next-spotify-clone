@@ -21,19 +21,11 @@ const SignupModal = () => {
           <h1 className="text-sm md:text-lg lg:text-xl font-bold mb-2">
             Start listening with a free Spotify account
           </h1>
-          <Link href="/auth/signup">
+          <Link href="/auth/signin">
             <button className="text-black bg-green-500 px-5 py-3 md:px-6 lg:px-8 rounded-3xl md:text-lg lg:text-xl font-bold hover:scale-105 whitespace-nowrap">
               Sign up free
             </button>
           </Link>
-          <p className="text-gray-300">
-            Already have an account?{" "}
-            <Link href="/auth/login">
-              <span className="text-white font-bold underline hover:scale-110 hover:text-gray-200">
-                Login
-              </span>
-            </Link>
-          </p>
         </div>
         <p
           className="text-center font-semibold mt-2 cursor-pointer"

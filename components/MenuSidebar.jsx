@@ -7,8 +7,10 @@ import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
+import { useSession } from "next-auth/react";
 
 const MenuSidebar = ({ showSidebar, user }) => {
+  const { data: session } = useSession();
   return (
     <div
       className={`bg-black top-16 ${
@@ -42,41 +44,21 @@ const MenuSidebar = ({ showSidebar, user }) => {
       <div className="flex-grow flex flex-col justify-end pb-2">
         <div></div>
         <div className="flex gap-1 items-center justify-between text-lg font-bold px-2">
-          {!user ? (
+          {!session ? (
             <>
-              <button className="text-gray-300  border-none rounded-lg py-2 hover:scale-105  whitespace-nowrap hover:text-white">
-                <Link href="/auth/signup">Sign up</Link>
-              </button>
               <button className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105 ">
-                <Link href="/auth/login">Log in</Link>
+                <Link href="/auth/signin">Sign in</Link>
               </button>
             </>
           ) : (
-            <div className="flex flex-col  gap-2 items-start">
-              <div className="text-[15px] bg-black pr-4 rounded-2xl flex items-center gap-2">
-                {user.photoURL ? (
-                  <div className="relative h-8 w-8 rounded-full">
-                    <Image
-                      src={user.photoURL}
-                      alt="user"
-                      layout="fill"
-                      className="rounded-full"
-                    />
-                  </div>
-                ) : (
-                  <div className="h-8 w-8 rounded-full bg-[#171a19] flex items-center justify-center">
-                    <FaUserAlt />
-                  </div>
-                )}
-                <p>{user.displayName || user.email}</p>
+            <>
+              <div className="text-[15px] bg-black rounded-2xl px-4 flex items-center justify-center">
+                <p>{session?.user?.name}</p>
               </div>
-              <button
-                className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
-                onClick={() => signOut(auth)}
-              >
+              <button className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105">
                 Log out
               </button>
-            </div>
+            </>
           )}
         </div>
       </div>

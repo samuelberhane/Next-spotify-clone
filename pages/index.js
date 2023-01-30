@@ -34,7 +34,7 @@ export default function Home() {
         <Feeds />
 
         {/* Signup Footer Component */}
-        <SignupFooter />
+        {!session && <SignupFooter />}
 
         {/* Signup Modal */}
         {showModal && <SignupModal />}

@@ -6,9 +6,11 @@ import { MenuSidebar } from ".";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { FaUserAlt } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 const Header = ({ user }) => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -33,39 +35,18 @@ const Header = ({ user }) => {
           </div>
           <div className="w-full  sm:flex justify-end hidden">
             <div className="gap-4  items-center text-lg font-bold  sm:flex">
-              {!user ? (
+              {!session ? (
                 <>
-                  {" "}
-                  <button className="text-gray-300  border-none rounded-lg py-2 hover:scale-105  whitespace-nowrap hover:text-white">
-                    <Link href="/auth/signup">Sign up</Link>
-                  </button>
                   <button className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105 ">
-                    <Link href="/auth/login">Log in</Link>
+                    <Link href="/auth/signin">Sign in</Link>
                   </button>
                 </>
               ) : (
                 <>
-                  <div className="text-[15px] bg-black pr-4 rounded-2xl flex items-center gap-2">
-                    {user.photoURL ? (
-                      <div className="relative h-8 w-8 rounded-full">
-                        <Image
-                          src={user.photoURL}
-                          alt="user"
-                          layout="fill"
-                          className="rounded-full"
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-8 w-8 rounded-full bg-[#171a19] flex items-center justify-center">
-                        <FaUserAlt />
-                      </div>
-                    )}
-                    <p>{user.displayName || user.email}</p>
+                  <div className="text-[15px] bg-black rounded-2xl px-4 flex items-center justify-center">
+                    <p>{session?.user?.name}</p>
                   </div>
-                  <button
-                    className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
-                    onClick={() => signOut(auth)}
-                  >
+                  <button className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105">
                     Log out
                   </button>
                 </>
