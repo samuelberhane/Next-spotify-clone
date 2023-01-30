@@ -6,7 +6,6 @@ import {
   Loader,
   SignupFooter,
   SignupModal,
-  Submenu,
 } from "../components";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
@@ -56,9 +55,6 @@ export default function Home() {
 
         {/* Signup Modal */}
         {showModal && <SignupModal />}
-
-        {/* Submenu */}
-        <Submenu />
       </main>
     </>
   );
