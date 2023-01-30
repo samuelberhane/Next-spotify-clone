@@ -3,8 +3,22 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSpotify } from "react-icons/bs";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Loader } from "../../components";
 
 function Signin({ providers }) {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
+
+  if (session) return <Loader />;
+
   return (
     <>
       <Head>
@@ -35,7 +49,7 @@ function Signin({ providers }) {
             <button
               className="authBtn bg-blue-600 text-white mb-4"
               onClick={() => {
-                signIn(provider.id);
+                signIn(provider.id, { callbackUrl: "/" });
               }}
             >
               <BsSpotify className="text-2xl" />

@@ -13,7 +13,6 @@ import { useSession } from "next-auth/react";
 export default function Home() {
   const showModal = useSelector(selectShowModal);
   const { data: session, status } = useSession();
-  console.log("session", session);
 
   return (
     <>
