@@ -1,25 +1,10 @@
 import { getProviders, signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect } from "react";
 import Link from "next/link";
 import { BsSpotify } from "react-icons/bs";
 
 function Signin({ providers }) {
-  const { data: session } = useSession();
-  const router = useRouter();
-
-  console.log("providers", providers);
-
-  useEffect(() => {
-    if (session) {
-      router.push("/");
-    }
-  }, [session]);
-
-  if (session) return <div>Loading...</div>;
-
   return (
     <>
       <Head>
@@ -49,7 +34,9 @@ function Signin({ providers }) {
           <div key={provider.name}>
             <button
               className="authBtn bg-blue-600 text-white mb-4"
-              onClick={() => signIn(provider.id)}
+              onClick={() => {
+                signIn(provider.id);
+              }}
             >
               <BsSpotify className="text-2xl" />
               <span> Sign in with {provider.name}</span>
