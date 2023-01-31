@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { AuthContent, AuthForm } from ".";
@@ -33,6 +34,7 @@ const Auth = ({ head }) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [userLoggedin, setUserLoggedin] = useState(false);
   const [inputData, setInputData] = useState({
+    name: "",
     email: "",
     confirmEmail: "",
     password: "",
@@ -68,7 +70,7 @@ const Auth = ({ head }) => {
     // check inputs
     checkInputs();
 
-    const { email, confirmEmail, password, confirmPassword } = inputData;
+    const { name, email, confirmEmail, password, confirmPassword } = inputData;
 
     // Signup User
     if (head === "Signup") {
@@ -86,6 +88,9 @@ const Auth = ({ head }) => {
         setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
+            updateProfile(auth?.currentUser, {
+              displayName: name,
+            });
             toast.success("User Created Successufully.", toastOptions);
             router.push("/");
           })

@@ -3,6 +3,23 @@ import Link from "next/link";
 const AuthForm = ({ head, handleSubmit, inputData, setInputData }) => {
   return (
     <form>
+      {head === "Signup" && (
+        <div className="formGroup">
+          <label htmlFor="name">Full Name</label>
+          <input
+            className="input"
+            type="text"
+            id="name"
+            placeholder="Enter your name."
+            value={inputData.name}
+            required
+            onChange={(e) =>
+              setInputData({ ...inputData, name: e.target.value })
+            }
+          />
+        </div>
+      )}
+
       <div className="formGroup">
         <label htmlFor="email">
           {head === "Login" ? "Email address" : "What's your email?"}
@@ -11,6 +28,7 @@ const AuthForm = ({ head, handleSubmit, inputData, setInputData }) => {
           className="input"
           type="email"
           id="email"
+          required
           placeholder="Enter your email."
           value={inputData.email}
           onChange={(e) =>
@@ -22,6 +40,7 @@ const AuthForm = ({ head, handleSubmit, inputData, setInputData }) => {
         <div className="formGroup">
           <label htmlFor="confirmEmail">Confirm your email</label>
           <input
+            required
             className="input"
             type="email"
             id="confirmEmail"
@@ -41,6 +60,7 @@ const AuthForm = ({ head, handleSubmit, inputData, setInputData }) => {
           className="input"
           type="password"
           id="password"
+          required
           value={inputData.password}
           onChange={(e) =>
             setInputData({ ...inputData, password: e.target.value })
@@ -57,6 +77,7 @@ const AuthForm = ({ head, handleSubmit, inputData, setInputData }) => {
             className="input"
             type="password"
             id="confirmPassword"
+            required
             value={inputData.confirmPassword}
             onChange={(e) =>
               setInputData({ ...inputData, confirmPassword: e.target.value })
