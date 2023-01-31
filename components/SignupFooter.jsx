@@ -12,7 +12,7 @@ const SignupFooter = () => {
           credit card needed.
         </p>
       </div>
-      <Link href="/auth/signin">
+      <Link href="/auth/signup">
         <button className="bg-white text-black px-5 py-3 md:px-6 lg:px-8 rounded-3xl md:text-lg lg:text-xl font-bold hover:scale-105 whitespace-nowrap">
           Sign up free
         </button>

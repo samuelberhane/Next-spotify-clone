@@ -1,7 +1,6 @@
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import MenuSidebar from "./MenuSidebar";
-import Signup from "./Signup";
 import Feeds from "./Feeds";
 import Card from "./Card";
 import Feed from "./Feed";
@@ -9,12 +8,14 @@ import Loader from "./Loader";
 import SignupFooter from "./SignupFooter";
 import SignupModal from "./SignupModal";
 import LoggedFeeds from "./LoggedFeeds";
+import Auth from "./Auth";
+import AuthContent from "./AuthContent";
+import AuthForm from "./AuthForm";
 
 export {
   Sidebar,
   Header,
   MenuSidebar,
-  Signup,
   Feeds,
   Card,
   Feed,
@@ -22,4 +23,7 @@ export {
   SignupFooter,
   SignupModal,
   LoggedFeeds,
+  Auth,
+  AuthContent,
+  AuthForm,
 };

@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  playlists: [],
-  playlistID: null,
-};
+const initialState = {};
 
 const songSlice = createSlice({
   name: "song",

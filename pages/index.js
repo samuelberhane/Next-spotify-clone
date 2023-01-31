@@ -9,24 +9,9 @@ import {
 } from "../components";
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import useSpotify from "../hooks/useSpotify";
 
 export default function Home() {
   const showModal = useSelector(selectShowModal);
-  const { data: session } = useSession();
-  const spotifyApi = useSpotify();
-  const [playlists, setPlaylists] = useState([]);
-
-  //fetch user playlists
-  useEffect(() => {
-    if (!session?.accessToken) return;
-    if (spotifyApi.getAccessToken()) {
-    }
-  }, [session?.accessToken]);
-
-  console.log("playlists", playlists);
 
   return (
     <>
@@ -44,12 +29,12 @@ export default function Home() {
         <Header />
 
         {/***** User logged out Feeds *****/}
-        {!session && <Feeds />}
+        <Feeds />
 
-        {session && <LoggedFeeds />}
+        {/* <LoggedFeeds /> */}
 
         {/* Signup Footer Component */}
-        {!session && <SignupFooter />}
+        <SignupFooter />
 
         {/* Signup Modal */}
         {showModal && <SignupModal />}

@@ -4,13 +4,10 @@ import { VscFolderLibrary } from "react-icons/vsc";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
-import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const { data: session } = useSession();
-
   return (
     <div className="bg-black top-0 flex-col  bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:flex fixed">
       <div>
@@ -36,7 +33,7 @@ const Sidebar = () => {
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer search"
             onClick={() => {
-              !session && dispatch(SHOW_MODAL());
+              dispatch(SHOW_MODAL());
             }}
           >
             <AiOutlineSearch className="text-3xl" />{" "}
@@ -45,7 +42,7 @@ const Sidebar = () => {
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer library"
             onClick={() => {
-              !session && dispatch(SHOW_MODAL());
+              dispatch(SHOW_MODAL());
             }}
           >
             <VscFolderLibrary className="text-3xl" />{" "}
@@ -57,7 +54,7 @@ const Sidebar = () => {
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer playlist"
             onClick={() => {
-              !session && dispatch(SHOW_MODAL());
+              dispatch(SHOW_MODAL());
             }}
           >
             <BsFillPlusSquareFill className="text-3xl" />{" "}
@@ -66,7 +63,7 @@ const Sidebar = () => {
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer liked"
             onClick={() => {
-              !session && dispatch(SHOW_MODAL());
+              dispatch(SHOW_MODAL());
             }}
           >
             <BiHeartSquare className="text-4xl bg-[#2e153a] text-[#43a355]" />{" "}
