@@ -1,17 +1,18 @@
 import Image from "next/legacy/image";
-import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
-import { VscFolderLibrary } from "react-icons/vsc";
-import { BsFillPlusSquareFill } from "react-icons/bs";
-import { BiHeartSquare } from "react-icons/bi";
+import { AiFillHome, AiOutlineBarChart } from "react-icons/ai";
+import { MdRecommend } from "react-icons/md";
+import { RiPlayListFill } from "react-icons/ri";
+import { GiSpinningTop } from "react-icons/gi";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 const Sidebar = ({ user }) => {
   const dispatch = useDispatch();
   return (
     <div className="bg-black top-0 flex-col  bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:flex fixed">
       <div>
-        <div className="flex items-center text-green-500 mt-8 mb-6">
+        <div className="flex items-center text-green-500 mt-8 mb-8">
           <Image
             src="/img/logo.png"
             alt="spotify-logo"
@@ -24,11 +25,14 @@ const Sidebar = ({ user }) => {
         </div>
 
         {/* Home,search and library */}
-        <div className="flex flex-col gap-4 mb-8 mt-4">
-          <div className="flex items-center gap-4 text-lg cursor-pointer">
+        <div className="flex flex-col gap-6 my-6">
+          <Link
+            href="/"
+            className="flex items-center gap-4 text-lg cursor-pointer"
+          >
             <AiFillHome className="text-3xl" />{" "}
             <p className="hidden md:inline">Home</p>
-          </div>
+          </Link>
 
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer search"
@@ -36,29 +40,30 @@ const Sidebar = ({ user }) => {
               !user && dispatch(SHOW_MODAL());
             }}
           >
-            <AiOutlineSearch className="text-3xl" />{" "}
-            <p className="hidden md:inline search">Search</p>
+            <MdRecommend className="text-3xl" />{" "}
+            <p className="hidden md:inline search">Recommended</p>
           </div>
+
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer library"
             onClick={() => {
               !user && dispatch(SHOW_MODAL());
             }}
           >
-            <VscFolderLibrary className="text-3xl" />{" "}
-            <p className="hidden md:inline library">Your Library</p>
+            <RiPlayListFill className="text-3xl" />{" "}
+            <p className="hidden md:inline library">Spotify Playlists</p>
           </div>
         </div>
         {/* create playlist and liked songs */}
-        <div className="flex flex-col gap-4 mb-2">
+        <div className="flex flex-col gap-6 mb-2">
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer playlist"
             onClick={() => {
               !user && dispatch(SHOW_MODAL());
             }}
           >
-            <BsFillPlusSquareFill className="text-3xl" />{" "}
-            <p className="hidden md:inline playlist">Create Playlist</p>
+            <GiSpinningTop className="text-3xl" />{" "}
+            <p className="hidden md:inline playlist">Top Artists</p>
           </div>
           <div
             className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer liked"
@@ -66,8 +71,8 @@ const Sidebar = ({ user }) => {
               !user && dispatch(SHOW_MODAL());
             }}
           >
-            <BiHeartSquare className="text-4xl bg-[#2e153a] text-[#43a355]" />{" "}
-            <p className="hidden md:inline liked">Liked Songs</p>
+            <AiOutlineBarChart className="text-3xl" />{" "}
+            <p className="hidden md:inline liked">Top Charts</p>
           </div>
         </div>
       </div>

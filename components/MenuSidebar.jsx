@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
-import { VscFolderLibrary } from "react-icons/vsc";
-import { BsFillPlusSquareFill } from "react-icons/bs";
-import { BiHeartSquare } from "react-icons/bi";
+import { AiFillHome, AiOutlineBarChart } from "react-icons/ai";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useRouter } from "next/router";
+import { MdRecommend } from "react-icons/md";
+import { RiPlayListFill } from "react-icons/ri";
+import { GiSpinningTop } from "react-icons/gi";
 
 const MenuSidebar = ({ showSidebar, user }) => {
   const dispatch = useDispatch();
@@ -21,48 +21,49 @@ const MenuSidebar = ({ showSidebar, user }) => {
     >
       <div>
         <div>
-          <div className="flex flex-col gap-4 mb-10 mt-4 px-4">
-            <div className="flex items-center gap-4 text-lg">
+          <div className="flex flex-col gap-6 mb-6 mt-4 px-4">
+            <Link
+              href="/"
+              className="flex items-center gap-4 text-lg cursor-pointer"
+            >
               <AiFillHome className="text-3xl" /> <p>Home</p>
-            </div>
+            </Link>
 
             <div
-              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer search"
               onClick={() => {
                 !user && dispatch(SHOW_MODAL());
               }}
             >
-              <AiOutlineSearch className="text-3xl" /> <p>Search</p>
+              <MdRecommend className="text-3xl" /> <p>Recommended</p>
             </div>
 
             <div
-              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer library"
               onClick={() => {
                 !user && dispatch(SHOW_MODAL());
               }}
             >
-              <VscFolderLibrary className="text-3xl" /> <p>Your Library</p>
+              <RiPlayListFill className="text-3xl" /> <p>Spotify Playlists</p>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 mb-1 px-4">
+          <div className="flex flex-col gap-6 mb-1 px-4">
             <div
-              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer playlist"
               onClick={() => {
                 !user && dispatch(SHOW_MODAL());
               }}
             >
-              <BsFillPlusSquareFill className="text-3xl" />{" "}
-              <p>Create Playlist</p>
+              <GiSpinningTop className="text-3xl" /> <p>Top Artists</p>
             </div>
             <div
-              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+              className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer liked"
               onClick={() => {
                 !user && dispatch(SHOW_MODAL());
               }}
             >
-              <BiHeartSquare className="text-4xl text-[#67ca93]" />{" "}
-              <p>Liked Songs</p>
+              <AiOutlineBarChart className="text-3xl" /> <p>Top Charts</p>
             </div>
           </div>
         </div>
