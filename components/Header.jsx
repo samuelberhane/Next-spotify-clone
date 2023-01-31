@@ -8,7 +8,9 @@ import { signOut, useSession } from "next-auth/react";
 const Header = ({ user }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const { data: session } = useSession();
-  const [showLogout, setShowLogout] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (e) => {};
 
   return (
     <>
@@ -22,9 +24,23 @@ const Header = ({ user }) => {
                 height={40}
                 width={40}
               />
-              <p className="text-3xl ml-2 font-semibold">Spotify</p>
+              {/* <p className="text-3xl ml-2 font-semibold">Spotify</p> */}
             </div>
           </Link>
+          {/* search input */}
+          <form
+            onSubmit={handleSearch}
+            className="flex-grow sm:w-[500px] md:w-[600px] mx-4"
+          >
+            <input
+              type="text"
+              placeholder="Search tracks,albums or artists..."
+              className=" mx-2 outline-none rounded-xl bg-black text-white shadow-md px-4 py-2 w-full"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </form>
+
           <div
             onClick={() => setShowSidebar(!showSidebar)}
             className="sm:hidden"
@@ -48,7 +64,7 @@ const Header = ({ user }) => {
                   />
                   <p>{session?.user?.name}</p>
                   <AiFillCaretDown
-                    className="text-2xl text-red-400 ml-2"
+                    className="text-2xl text-red-400 ml-2 cursor-pointer"
                     onClick={() => signOut()}
                   />
                 </div>

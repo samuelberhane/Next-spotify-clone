@@ -5,13 +5,11 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useSession } from "next-auth/react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectPlaylists, PLAYLIST_ID } from "../redux/slice/songSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const userPlaylists = useSelector(selectPlaylists);
 
   return (
     <div className="bg-black top-0 flex-col  bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:flex fixed">
@@ -77,17 +75,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 hidden md:inline scrollbar-hide">
-        {userPlaylists?.map((playlist, index) => (
-          <p
-            key={index}
-            className="text-gray-400 mb-2 cursor-pointer"
-            onClick={() => dispatch(PLAYLIST_ID(playlist.id))}
-          >
-            {playlist.name}
-          </p>
-        ))}
-      </div>
+      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 hidden md:inline scrollbar-hide"></div>
     </div>
   );
 };

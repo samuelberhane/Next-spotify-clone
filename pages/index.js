@@ -10,26 +10,23 @@ import {
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
-import SpotifyWebApi from "spotify-web-api-node";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { GET_PLAYLISTS } from "../redux/slice/songSlice";
 import useSpotify from "../hooks/useSpotify";
 
 export default function Home() {
-  const dispatch = useDispatch();
   const showModal = useSelector(selectShowModal);
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
+  const [playlists, setPlaylists] = useState([]);
 
   //fetch user playlists
   useEffect(() => {
+    if (!session?.accessToken) return;
     if (spotifyApi.getAccessToken()) {
-      spotifyApi.getUserPlaylists().then((playlists) => {
-        dispatch(GET_PLAYLISTS(playlists.body.items));
-      });
     }
   }, [session?.accessToken]);
+
+  console.log("playlists", playlists);
 
   return (
     <>

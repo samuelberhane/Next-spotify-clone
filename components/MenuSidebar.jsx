@@ -7,13 +7,10 @@ import { useSession, signOut } from "next-auth/react";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import { selectPlaylists } from "../redux/slice/songSlice";
 
 const MenuSidebar = ({ showSidebar }) => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
-  const userPlaylists = useSelector(selectPlaylists);
 
   return (
     <div
@@ -94,13 +91,7 @@ const MenuSidebar = ({ showSidebar }) => {
           </div>
         </div>
       </div>
-      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 px-5 scrollbar-hide">
-        {userPlaylists?.map((playlist, index) => (
-          <p key={index} className="text-gray-400 mb-2 cursor-pointer">
-            {playlist.name}
-          </p>
-        ))}
-      </div>
+      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 px-5 scrollbar-hide"></div>
     </div>
   );
 };
