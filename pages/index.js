@@ -5,21 +5,45 @@ import {
   Sidebar,
   SignupFooter,
   SignupModal,
+  LoggedFeeds,
 } from "../components";
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import SpotifyWebApi from "spotify-web-api-node";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { GET_PLAYLISTS } from "../redux/slice/songSlice";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const showModal = useSelector(selectShowModal);
   const { data: session } = useSession();
-  console.log("session", session);
+  const [playlists, setPlaylists] = useState([]);
 
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.NEXT_PUBLIC_SPOTIFY_ID,
     clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
   });
+
+  // set spotify accessToken
+  useEffect(() => {
+    if (session?.accessToken) {
+      spotifyApi.setAccessToken(session?.accessToken);
+    }
+  }, [session?.accessToken]);
+
+  //fetch user playlists
+  useEffect(() => {
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi.getUserPlaylists().then((playlists) => {
+        setPlaylists(playlists.body.items);
+        dispatch(GET_PLAYLISTS(playlists.body.items));
+      });
+    }
+  }, [session?.accessToken]);
+
+  console.log("playlists", playlists);
 
   return (
     <>
@@ -38,6 +62,8 @@ export default function Home() {
 
         {/***** User logged out Feeds *****/}
         {!session && <Feeds />}
+
+        {session && <LoggedFeeds />}
 
         {/* Signup Footer Component */}
         {!session && <SignupFooter />}

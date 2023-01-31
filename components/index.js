@@ -8,6 +8,7 @@ import Feed from "./Feed";
 import Loader from "./Loader";
 import SignupFooter from "./SignupFooter";
 import SignupModal from "./SignupModal";
+import LoggedFeeds from "./LoggedFeeds";
 
 export {
   Sidebar,
@@ -20,4 +21,5 @@ export {
   Loader,
   SignupFooter,
   SignupModal,
+  LoggedFeeds,
 };
