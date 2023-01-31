@@ -3,8 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { AiFillCaretDown, AiOutlineMenu } from "react-icons/ai";
 import { MenuSidebar } from ".";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { auth } from "../firebase/config";
 
 const Header = ({ user }) => {
+  const router = useRouter();
   const [showSidebar, setShowSidebar] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -66,7 +70,14 @@ const Header = ({ user }) => {
                     className="w-[40px] h-[40px] rounded-full cursor-pointer"
                   />
                   <p>{user?.displayName}</p>
-                  <AiFillCaretDown className="text-2xl text-red-400 ml-2 cursor-pointer" />
+                  <AiFillCaretDown
+                    className="text-2xl text-red-400 ml-2 cursor-pointer"
+                    onClick={() => {
+                      signOut(auth).then(() => {
+                        router.push("/auth/login");
+                      });
+                    }}
+                  />
                 </div>
               )}
             </div>

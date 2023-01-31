@@ -29,7 +29,7 @@ export default function Home() {
   }, []);
 
   console.log("user", user);
-  if (loading) return <h1>loading...</h1>;
+  if (loading) return;
 
   return (
     <>
@@ -41,13 +41,13 @@ export default function Home() {
       </Head>
       <main>
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar user={user} />
 
         {/* Header */}
         <Header user={user} />
 
         {/***** User logged out Feeds *****/}
-        <Feeds user={user} />
+        {!user && <Feeds user={user} />}
 
         {/* <LoggedFeeds /> */}
 

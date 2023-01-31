@@ -6,10 +6,13 @@ import { BiHeartSquare } from "react-icons/bi";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/config";
+import { useRouter } from "next/router";
 
 const MenuSidebar = ({ showSidebar, user }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   return (
     <div
       className={`bg-black top-16 ${
@@ -26,7 +29,7 @@ const MenuSidebar = ({ showSidebar, user }) => {
             <div
               className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
               onClick={() => {
-                dispatch(SHOW_MODAL());
+                !user && dispatch(SHOW_MODAL());
               }}
             >
               <AiOutlineSearch className="text-3xl" /> <p>Search</p>
@@ -35,7 +38,7 @@ const MenuSidebar = ({ showSidebar, user }) => {
             <div
               className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
               onClick={() => {
-                dispatch(SHOW_MODAL());
+                !user && dispatch(SHOW_MODAL());
               }}
             >
               <VscFolderLibrary className="text-3xl" /> <p>Your Library</p>
@@ -46,7 +49,7 @@ const MenuSidebar = ({ showSidebar, user }) => {
             <div
               className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
               onClick={() => {
-                dispatch(SHOW_MODAL());
+                !user && dispatch(SHOW_MODAL());
               }}
             >
               <BsFillPlusSquareFill className="text-3xl" />{" "}
@@ -55,7 +58,7 @@ const MenuSidebar = ({ showSidebar, user }) => {
             <div
               className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
               onClick={() => {
-                useDispatch(SHOW_MODAL());
+                !user && dispatch(SHOW_MODAL());
               }}
             >
               <BiHeartSquare className="text-4xl text-[#67ca93]" />{" "}
@@ -83,7 +86,14 @@ const MenuSidebar = ({ showSidebar, user }) => {
                 className="w-[40px] h-[40px] rounded-full cursor-pointer whitespace-nowrap"
               />
               <p>{user?.displayName}</p>
-              <AiFillCaretDown className="text-2xl text-red-400 ml-1 cursor-pointer" />
+              <AiFillCaretDown
+                className="text-2xl text-red-400 ml-1 cursor-pointer"
+                onClick={() => {
+                  signOut(auth).then(() => {
+                    router.push("/auth/login");
+                  });
+                }}
+              />
             </div>
           )}
         </div>
