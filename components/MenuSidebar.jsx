@@ -6,6 +6,7 @@ import { BiHeartSquare } from "react-icons/bi";
 import { useSession, signOut } from "next-auth/react";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
+import { AiFillCaretDown } from "react-icons/ai";
 
 const MenuSidebar = ({ showSidebar }) => {
   const { data: session } = useSession();
@@ -73,19 +74,18 @@ const MenuSidebar = ({ showSidebar }) => {
               </button>
             </>
           ) : (
-            <>
-              <div className="text-[15px] bg-black rounded-2xl px-4 flex items-center justify-center">
-                <p>{session?.user?.name}</p>
-              </div>
-              <button
-                className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
-                onClick={() => {
-                  signOut();
-                }}
-              >
-                Log out
-              </button>
-            </>
+            <div className="text-[15px] bg-black rounded-2xl pr-2 gap-2 flex items-center justify-center relative">
+              <img
+                src={session?.user?.image || "/img/user.png"}
+                alt="userImg"
+                className="w-[40px] h-[40px] rounded-full"
+              />
+              <p>{session?.user?.name}</p>
+              <AiFillCaretDown
+                className="text-2xl text-red-400 ml-2 cursor-pointer"
+                onClick={() => signOut()}
+              />
+            </div>
           )}
         </div>
       </div>

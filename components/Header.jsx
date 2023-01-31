@@ -1,15 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiFillCaretDown, AiOutlineMenu } from "react-icons/ai";
 import { MenuSidebar } from ".";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 const Header = ({ user }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const { data: session } = useSession();
-  const router = useRouter();
+  const [showLogout, setShowLogout] = useState(false);
 
   return (
     <>
@@ -41,19 +40,18 @@ const Header = ({ user }) => {
                   </button>
                 </>
               ) : (
-                <>
-                  <div className="text-[15px] bg-black rounded-2xl px-4 flex items-center justify-center">
-                    <p>{session?.user?.name}</p>
-                  </div>
-                  <button
-                    className="text-black bg-white border-none rounded-3xl px-6 py-2 whitespace-nowrap hover:scale-105"
-                    onClick={() => {
-                      signOut();
-                    }}
-                  >
-                    Log out
-                  </button>
-                </>
+                <div className="text-[15px] bg-black rounded-2xl pr-2 gap-2 flex items-center justify-center relative">
+                  <img
+                    src={session?.user?.image || "/img/user.png"}
+                    alt="userImg"
+                    className="w-[40px] h-[40px] rounded-full cursor-pointer"
+                  />
+                  <p>{session?.user?.name}</p>
+                  <AiFillCaretDown
+                    className="text-2xl text-red-400 ml-2"
+                    onClick={() => signOut()}
+                  />
+                </div>
               )}
             </div>
           </div>

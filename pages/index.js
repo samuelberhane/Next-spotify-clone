@@ -14,6 +14,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 export default function Home() {
   const showModal = useSelector(selectShowModal);
   const { data: session } = useSession();
+  console.log("session", session);
 
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.NEXT_PUBLIC_SPOTIFY_ID,
