@@ -4,11 +4,13 @@ import { VscFolderLibrary } from "react-icons/vsc";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
+import { SHOW_MODAL } from "../redux/slice/authSlice";
+import { useDispatch } from "react-redux";
 
 const MenuSidebar = ({ showSidebar }) => {
   const { data: session } = useSession();
-  const router = useRouter();
+  const dispatch = useDispatch();
+
   return (
     <div
       className={`bg-black top-16 ${
@@ -20,19 +22,41 @@ const MenuSidebar = ({ showSidebar }) => {
           <div className="flex items-center gap-4 text-lg">
             <AiFillHome className="text-3xl" /> <p>Home</p>
           </div>
-          <div className="flex items-center gap-4 text-lg text-gray-400">
+
+          <div
+            className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+            onClick={() => {
+              !session && dispatch(SHOW_MODAL());
+            }}
+          >
             <AiOutlineSearch className="text-3xl" /> <p>Search</p>
           </div>
-          <div className="flex items-center gap-4 text-lg text-gray-400">
+
+          <div
+            className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+            onClick={() => {
+              !session && dispatch(SHOW_MODAL());
+            }}
+          >
             <VscFolderLibrary className="text-3xl" /> <p>Your Library</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-4 mb-10 px-4">
-          <div className="flex items-center gap-4 text-lg text-gray-400">
+          <div
+            className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+            onClick={() => {
+              !session && dispatch(SHOW_MODAL());
+            }}
+          >
             <BsFillPlusSquareFill className="text-3xl" /> <p>Create Playlist</p>
           </div>
-          <div className="flex items-center gap-4 text-lg text-gray-400">
+          <div
+            className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer"
+            onClick={() => {
+              !session && useDispatch(SHOW_MODAL());
+            }}
+          >
             <BiHeartSquare className="text-4xl text-[#67ca93]" />{" "}
             <p>Liked Songs</p>
           </div>

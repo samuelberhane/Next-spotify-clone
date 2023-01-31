@@ -18,15 +18,6 @@ const authSlice = createSlice({
     CLOSE_MODAL: (state, action) => {
       state.showModal = false;
     },
-    SET_SUBMENU: (state, action) => {
-      (state.showSubmenu = true),
-        (state.submenuTitle = action.payload.submenuTitle),
-        (state.submenuText = action.payload.submenuText),
-        (state.location = action.payload.location);
-    },
-    CLOSE_SUBMENU: (state, action) => {
-      state.showSubmenu = false;
-    },
   },
 });
 

@@ -9,10 +9,16 @@ import {
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
+import SpotifyWebApi from "spotify-web-api-node";
 
 export default function Home() {
   const showModal = useSelector(selectShowModal);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.NEXT_PUBLIC_SPOTIFY_ID,
+    clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
+  });
 
   return (
     <>
@@ -29,8 +35,8 @@ export default function Home() {
         {/* Header */}
         <Header />
 
-        {/***** Feeds *****/}
-        <Feeds />
+        {/***** User logged out Feeds *****/}
+        {!session && <Feeds />}
 
         {/* Signup Footer Component */}
         {!session && <SignupFooter />}

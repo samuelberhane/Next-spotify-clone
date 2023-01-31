@@ -5,9 +5,11 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
+import { useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const { data: session } = useSession();
 
   return (
     <div className="bg-black top-0   bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:inline fixed">
@@ -21,16 +23,21 @@ const Sidebar = () => {
           <AiFillHome className="text-3xl" />{" "}
           <p className="hidden md:inline">Home</p>
         </div>
+
         <div
           className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer search"
-          onClick={() => dispatch(SHOW_MODAL())}
+          onClick={() => {
+            !session && dispatch(SHOW_MODAL());
+          }}
         >
           <AiOutlineSearch className="text-3xl" />{" "}
           <p className="hidden md:inline search">Search</p>
         </div>
         <div
           className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer library"
-          onClick={() => dispatch(SHOW_MODAL())}
+          onClick={() => {
+            !session && dispatch(SHOW_MODAL());
+          }}
         >
           <VscFolderLibrary className="text-3xl" />{" "}
           <p className="hidden md:inline library">Your Library</p>
@@ -40,14 +47,18 @@ const Sidebar = () => {
       <div className="flex flex-col gap-4 mb-2">
         <div
           className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer playlist"
-          onClick={() => dispatch(SHOW_MODAL())}
+          onClick={() => {
+            !session && dispatch(SHOW_MODAL());
+          }}
         >
           <BsFillPlusSquareFill className="text-3xl" />{" "}
           <p className="hidden md:inline playlist">Create Playlist</p>
         </div>
         <div
           className="flex items-center gap-4 text-lg text-gray-400 cursor-pointer liked"
-          onClick={() => dispatch(SHOW_MODAL())}
+          onClick={() => {
+            !session && dispatch(SHOW_MODAL());
+          }}
         >
           <BiHeartSquare className="text-4xl bg-[#2e153a] text-[#43a355]" />{" "}
           <p className="hidden md:inline liked">Liked Songs</p>
