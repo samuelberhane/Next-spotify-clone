@@ -8,8 +8,7 @@ import { useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useState } from "react";
 
-const MenuSidebar = ({ showSidebar }) => {
-  const [user, setUser] = useState(null);
+const MenuSidebar = ({ showSidebar, user }) => {
   const dispatch = useDispatch();
   return (
     <div
@@ -77,14 +76,14 @@ const MenuSidebar = ({ showSidebar }) => {
               </button>
             </>
           ) : (
-            <div className="text-[15px] bg-black rounded-2xl pr-2 gap-2 flex items-center justify-center relative">
+            <div className="text-[15px] bg-gray-700 rounded-2xl pr-1 gap-2 flex items-center justify-center relative shadow-lg">
               <img
-                src=""
+                src={user?.photoURL || "/img/user.png"}
                 alt="userImg"
-                className="w-[40px] h-[40px] rounded-full"
+                className="w-[40px] h-[40px] rounded-full cursor-pointer whitespace-nowrap"
               />
-              <p></p>
-              <AiFillCaretDown className="text-2xl text-red-400 ml-2 cursor-pointer" />
+              <p>{user?.displayName}</p>
+              <AiFillCaretDown className="text-2xl text-red-400 ml-1 cursor-pointer" />
             </div>
           )}
         </div>

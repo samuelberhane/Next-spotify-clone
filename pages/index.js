@@ -9,9 +9,27 @@ import {
 } from "../components";
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/config";
 
 export default function Home() {
   const showModal = useSelector(selectShowModal);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        setUser(user);
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  console.log("user", user);
+  if (loading) return <h1>loading...</h1>;
 
   return (
     <>
@@ -26,15 +44,15 @@ export default function Home() {
         <Sidebar />
 
         {/* Header */}
-        <Header />
+        <Header user={user} />
 
         {/***** User logged out Feeds *****/}
-        <Feeds />
+        <Feeds user={user} />
 
         {/* <LoggedFeeds /> */}
 
         {/* Signup Footer Component */}
-        <SignupFooter />
+        {!user && <SignupFooter />}
 
         {/* Signup Modal */}
         {showModal && <SignupModal />}

@@ -61,11 +61,11 @@ const Header = ({ user }) => {
               ) : (
                 <div className="text-[15px] bg-black rounded-2xl pr-2 gap-2 flex items-center justify-center relative">
                   <img
-                    src={session?.user?.image || "/img/user.png"}
+                    src={user?.photoURL || "/img/user.png"}
                     alt="userImg"
                     className="w-[40px] h-[40px] rounded-full cursor-pointer"
                   />
-                  <p>{session?.user?.name}</p>
+                  <p>{user?.displayName}</p>
                   <AiFillCaretDown className="text-2xl text-red-400 ml-2 cursor-pointer" />
                 </div>
               )}
