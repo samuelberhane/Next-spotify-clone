@@ -14,36 +14,22 @@ import SpotifyWebApi from "spotify-web-api-node";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { GET_PLAYLISTS } from "../redux/slice/songSlice";
+import useSpotify from "../hooks/useSpotify";
 
 export default function Home() {
   const dispatch = useDispatch();
   const showModal = useSelector(selectShowModal);
   const { data: session } = useSession();
-  const [playlists, setPlaylists] = useState([]);
-
-  const spotifyApi = new SpotifyWebApi({
-    clientId: process.env.NEXT_PUBLIC_SPOTIFY_ID,
-    clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
-  });
-
-  // set spotify accessToken
-  useEffect(() => {
-    if (session?.accessToken) {
-      spotifyApi.setAccessToken(session?.accessToken);
-    }
-  }, [session?.accessToken]);
+  const spotifyApi = useSpotify();
 
   //fetch user playlists
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi.getUserPlaylists().then((playlists) => {
-        setPlaylists(playlists.body.items);
         dispatch(GET_PLAYLISTS(playlists.body.items));
       });
     }
   }, [session?.accessToken]);
-
-  console.log("playlists", playlists);
 
   return (
     <>

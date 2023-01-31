@@ -14,6 +14,7 @@ const colorChar = [
 
 const LoggedFeeds = () => {
   const [color, setColor] = useState(null);
+
   useEffect(() => {
     setColor(colorChar[Math.floor(Math.random() * colorChar.length)]);
   }, []);

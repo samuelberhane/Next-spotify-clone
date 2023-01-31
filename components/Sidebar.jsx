@@ -3,11 +3,10 @@ import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscFolderLibrary } from "react-icons/vsc";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { BiHeartSquare } from "react-icons/bi";
-import { useDispatch } from "react-redux";
 import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useSession } from "next-auth/react";
-import { useSelector } from "react-redux";
-import { selectPlaylists } from "../redux/slice/songSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectPlaylists, PLAYLIST_ID } from "../redux/slice/songSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -78,9 +77,13 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 hidden md:inline">
+      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 hidden md:inline scrollbar-hide">
         {userPlaylists?.map((playlist, index) => (
-          <p key={index} className="text-gray-400 mb-2">
+          <p
+            key={index}
+            className="text-gray-400 mb-2 cursor-pointer"
+            onClick={() => dispatch(PLAYLIST_ID(playlist.id))}
+          >
             {playlist.name}
           </p>
         ))}

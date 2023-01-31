@@ -94,9 +94,9 @@ const MenuSidebar = ({ showSidebar }) => {
           </div>
         </div>
       </div>
-      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 px-5">
+      <div className="border-t-2 border-gray-500 pt-2 overflow-y-scroll flex-grow mt-2 px-5 scrollbar-hide">
         {userPlaylists?.map((playlist, index) => (
-          <p key={index} className="text-gray-400 mb-2">
+          <p key={index} className="text-gray-400 mb-2 cursor-pointer">
             {playlist.name}
           </p>
         ))}
