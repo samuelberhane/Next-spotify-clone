@@ -6,12 +6,14 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { AuthContent, AuthForm } from ".";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Loader } from ".";
+import { useEffect } from "react";
 
 // Toast Option
 const toastOptions = {
@@ -28,12 +30,24 @@ const toastOptions = {
 const Auth = ({ head }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [userLoggedin, setUserLoggedin] = useState(false);
   const [inputData, setInputData] = useState({
     email: "",
     confirmEmail: "",
     password: "",
     confirmPassword: "",
   });
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserLoggedin(user);
+        router.push("/");
+      }
+      setPageLoading(false);
+    });
+  }, []);
 
   // Check Empty Input Field
   const checkInputs = () => {
@@ -106,6 +120,8 @@ const Auth = ({ head }) => {
         toast.error(error.message, toastOptions);
       });
   };
+
+  if (pageLoading || userLoggedin) return;
 
   return (
     <div>
