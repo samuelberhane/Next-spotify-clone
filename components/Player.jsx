@@ -18,6 +18,7 @@ import {
   PREV_SONG,
   NEXT_SONG,
   SHUFFLE_SONG,
+  SONG_ENDED,
 } from "../redux/slice/songSlice";
 
 const Player = () => {
@@ -80,7 +81,10 @@ const Player = () => {
         </div>
         <div>
           <div className="flex items-center gap-4 justify-center text-xl mb-2">
-            <MdOutlineRestartAlt className="cursor-pointer" />
+            <MdOutlineRestartAlt
+              className="cursor-pointer"
+              onClick={() => (ref.current.currentTime = 0)}
+            />
             <BiSkipPrevious
               className="cursor-pointer"
               onClick={() => {
@@ -111,9 +115,9 @@ const Player = () => {
             />
           </div>
           <div className="flex items-center gap-1">
-            <p className="text-sm">0:00</p>
+            <p className="text-[13px]">0:00</p>
             <input type="range" name="" id="" className="vertical" />
-            <p className="text-sm">1:40</p>
+            <p className="text-[13px]">1:40</p>
           </div>
         </div>
         <div className="flex items-end gap-1">
@@ -122,13 +126,13 @@ const Player = () => {
         </div>
       </div>
       <audio
+        onEnded={() => dispatch(SONG_ENDED())}
         src={
           activeSong?.hub?.actions
             ? activeSong?.hub?.actions[1]?.uri
             : `/audio/defaultAudio.mp3`
         }
         ref={ref}
-        loop={true}
       />
     </div>
   );

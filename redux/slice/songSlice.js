@@ -48,10 +48,13 @@ const songSlice = createSlice({
       state.activeSong = state.currentSongs[state.songIndex];
     },
     SHUFFLE_SONG: (state, action) => {
-      (state.isPlaying = true),
-        (state.songIndex = Math.floor(
-          Math.random() * state.currentSongs.length
-        ));
+      state.isPlaying = true;
+      state.songIndex = Math.floor(Math.random() * state.currentSongs.length);
+      state.activeSong = state.currentSongs[state.songIndex];
+    },
+    SONG_ENDED: (state, action) => {
+      state.isPlaying = true;
+      state.songIndex = checkIndex(state.songIndex + 1, state);
       state.activeSong = state.currentSongs[state.songIndex];
     },
   },
@@ -66,6 +69,7 @@ export const {
   NEXT_SONG,
   PREV_SONG,
   SHUFFLE_SONG,
+  SONG_ENDED,
 } = songSlice.actions;
 export const selectCurrentSongs = (state) => state.song.currentSongs;
 export const selectIsPlaying = (state) => state.song.isPlaying;
