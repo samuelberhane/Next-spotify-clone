@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentSongs: [],
-  currentIndex: 0,
-  isActive: false,
   isPlaying: false,
   activeSong: {},
 };
@@ -11,13 +9,22 @@ const initialState = {
 const songSlice = createSlice({
   name: "song",
   initialState,
-  reducers: {},
+  reducers: {
+    PLAY_SONG: (state, action) => {
+      state.currentSongs = [...state.currentSongs, action.payload];
+      (state.activeSong = action.payload), (state.isPlaying = true);
+    },
+    PAUSE_SONG: (state, action) => {
+      state.isPlaying = false;
+    },
+    FIRST_SONG: (state, action) => {
+      state.activeSong = action.payload;
+    },
+  },
 });
 
-export const {} = songSlice.actions;
+export const { PLAY_SONG, PAUSE_SONG, FIRST_SONG } = songSlice.actions;
 export const selectCurrentSongs = (state) => state.song.currentSongs;
-export const selectCurrentIndex = (state) => state.song.currentIndex;
-export const selectIsActive = (state) => state.song.isActive;
 export const selectIsPlaying = (state) => state.song.isPlaying;
 export const selectActiveSong = (state) => state.song.activeSong;
 
