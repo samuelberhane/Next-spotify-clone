@@ -12,6 +12,7 @@ import Auth from "./Auth";
 import AuthContent from "./AuthContent";
 import AuthForm from "./AuthForm";
 import LoggedCard from "./LoggedCard";
+import PlayPause from "./PlayPause";
 
 export {
   LoggedCard,
@@ -28,4 +29,5 @@ export {
   Auth,
   AuthContent,
   AuthForm,
+  PlayPause,
 };
