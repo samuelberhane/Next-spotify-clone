@@ -4,8 +4,9 @@ import PlayPause from "./PlayPause";
 import { useDispatch } from "react-redux";
 import { PLAY_SONG, PAUSE_SONG } from "../redux/slice/songSlice";
 
-const LoggedCard = ({ playlist, isPlaying, activeSong }) => {
+const LoggedCard = ({ songs, isPlaying, activeSong, search }) => {
   const dispatch = useDispatch();
+  let playlist = search ? songs?.track : songs;
   const {
     title,
     share: { subject },

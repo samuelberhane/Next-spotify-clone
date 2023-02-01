@@ -1,4 +1,15 @@
 import Head from "next/head";
+import { selectShowModal } from "../redux/slice/authSlice";
+import {
+  selectSearchValue,
+  FIRST_SONG,
+  selectSearchSubmit,
+} from "../redux/slice/songSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/config";
+import { options } from "../utils/urlOptions";
 import {
   Feeds,
   Header,
@@ -8,36 +19,46 @@ import {
   LoggedFeeds,
   Player,
 } from "../components";
-import { selectShowModal } from "../redux/slice/authSlice";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/config";
-import { options } from "../utils/urlOptions";
-import { useDispatch } from "react-redux";
-import { FIRST_SONG } from "../redux/slice/songSlice";
-const searchUrl = `https://shazam.p.rapidapi.com/search?term=Pop%20the%20rain&locale=en-US&offset=0&limit=20`;
 
 export async function getServerSideProps() {
-  const playlists = await fetch(
+  const newReleases = await fetch(
     "https://shazam.p.rapidapi.com/charts/track?locale=en-US&pageSize=20&startFrom=0",
     options
   ).then((data) => data.json());
 
   return {
     props: {
-      playlists,
+      newReleases,
     },
   };
 }
 
-export default function Home({ playlists }) {
+export default function Home({ newReleases }) {
   const showModal = useSelector(selectShowModal);
+  const searchValue = useSelector(selectSearchValue);
+  const searchSubmit = useSelector(selectSearchSubmit);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [playlists, setPlaylists] = useState(newReleases);
   const [user, setUser] = useState(null);
-  console.log("playlists", playlists);
 
+  // handle search result
+  useEffect(() => {
+    const fetchSearchValue = async () => {
+      if (searchValue) {
+        const searchResult = await fetch(
+          `https://shazam.p.rapidapi.com/search?term=${searchValue}%20the%20rain&locale=en-US&offset=0&limit=50`,
+          options
+        );
+        const response = await searchResult.json();
+        setPlaylists(response);
+        console.log("response", response);
+      }
+    };
+    fetchSearchValue();
+  }, [searchSubmit]);
+
+  // check user auth state
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -61,10 +82,18 @@ export default function Home({ playlists }) {
       </Head>
       <main>
         {/* Sidebar */}
-        <Sidebar user={user} />
+        <Sidebar
+          user={user}
+          setPlaylists={setPlaylists}
+          newReleases={newReleases}
+        />
 
         {/* Header */}
-        <Header user={user} />
+        <Header
+          user={user}
+          setPlaylists={setPlaylists}
+          newReleases={newReleases}
+        />
 
         {/***** User logged out Feeds *****/}
         {!user && <Feeds user={user} />}

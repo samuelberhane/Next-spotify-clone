@@ -6,14 +6,20 @@ import { MenuSidebar } from ".";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/router";
 import { auth } from "../firebase/config";
+import { useDispatch } from "react-redux";
+import { SEARCH_VALUE, HANDLE_SUBMIT } from "../redux/slice/songSlice";
 
-const Header = ({ user }) => {
+const Header = ({ user, setPlaylists, newReleases }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
+    dispatch(SEARCH_VALUE(searchValue));
+    dispatch(HANDLE_SUBMIT());
+    setSearchValue("");
   };
 
   return (
@@ -84,7 +90,12 @@ const Header = ({ user }) => {
           </div>
         </div>
       </div>
-      <MenuSidebar showSidebar={showSidebar} user={user} />
+      <MenuSidebar
+        showSidebar={showSidebar}
+        user={user}
+        setPlaylists={setPlaylists}
+        newReleases={newReleases}
+      />
     </>
   );
 };

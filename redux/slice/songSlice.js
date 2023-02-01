@@ -6,6 +6,8 @@ const initialState = {
   activeSong: {},
   shuffle: false,
   songIndex: 0,
+  searchValue: "",
+  searchSubmit: false,
 };
 
 const checkIndex = (index, state) => {
@@ -59,6 +61,12 @@ const songSlice = createSlice({
         : checkIndex(state.songIndex + 1, state);
       state.activeSong = state.currentSongs[state.songIndex];
     },
+    SEARCH_VALUE: (state, action) => {
+      state.searchValue = action.payload;
+    },
+    HANDLE_SUBMIT: (state, action) => {
+      state.searchSubmit = !state.searchSubmit;
+    },
   },
 });
 
@@ -72,11 +80,15 @@ export const {
   PREV_SONG,
   SHUFFLE_SONG,
   SONG_ENDED,
+  SEARCH_VALUE,
+  HANDLE_SUBMIT,
 } = songSlice.actions;
 export const selectCurrentSongs = (state) => state.song.currentSongs;
 export const selectIsPlaying = (state) => state.song.isPlaying;
 export const selectActiveSong = (state) => state.song.activeSong;
 export const selectShuffle = (state) => state.song.shuffle;
 export const selectSongIndex = (state) => state.song.songIndex;
+export const selectSearchValue = (state) => state.song.searchValue;
+export const selectSearchSubmit = (state) => state.song.searchSubmit;
 
 export default songSlice.reducer;
