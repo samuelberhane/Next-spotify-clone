@@ -51,24 +51,14 @@ const LoggedCard = ({ songs, isPlaying, activeSong, search }) => {
               </div>
             </div>
 
-            <div className="w-full mt-2">
-              <Link
-                href={`/songs/${playlist?.key}`}
-                className="font-bold text-xl block"
-              >
+            <Link href={`/songs/${playlist?.key}`} className="w-full mt-2">
+              <p className="font-bold text-xl block">
                 {title.length < 15 ? title : title.slice(0, 14) + "..."}
-              </Link>
-              <Link
-                href={
-                  playlist?.artists
-                    ? `/artists/${playlist?.artists[0]?.adamid}`
-                    : "/"
-                }
-                className="mt-1 text-gray-300"
-              >
+              </p>
+              <p className="mt-1 text-gray-300">
                 {subject.length < 40 ? subject : subject.slice(0, 38) + "..."}
-              </Link>
-            </div>
+              </p>
+            </Link>
           </div>
         </div>
       )}

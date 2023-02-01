@@ -7,7 +7,7 @@ import { SHOW_MODAL } from "../redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 
-const Sidebar = ({ user, setPlaylists, newReleases }) => {
+const Sidebar = ({ user, setPlaylists, newReleases, details }) => {
   const dispatch = useDispatch();
   return (
     <div className="bg-black top-0 flex-col  bottom-0 md:w-56 w-24 text-white px-6  -z-10 hidden sm:flex fixed">
@@ -29,7 +29,9 @@ const Sidebar = ({ user, setPlaylists, newReleases }) => {
           <Link
             href="/"
             className="flex items-center gap-4 text-lg cursor-pointer"
-            onClick={() => setPlaylists(newReleases)}
+            onClick={() => {
+              !details && setPlaylists(newReleases);
+            }}
           >
             <AiFillHome className="text-3xl" />{" "}
             <p className="hidden md:inline">Home</p>

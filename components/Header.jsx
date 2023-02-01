@@ -9,7 +9,7 @@ import { auth } from "../firebase/config";
 import { useDispatch } from "react-redux";
 import { SEARCH_VALUE, HANDLE_SUBMIT } from "../redux/slice/songSlice";
 
-const Header = ({ user, setPlaylists, newReleases }) => {
+const Header = ({ user, setPlaylists, newReleases, details }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(false);
@@ -34,22 +34,23 @@ const Header = ({ user, setPlaylists, newReleases }) => {
                 height={40}
                 width={40}
               />
-              {/* <p className="text-3xl ml-2 font-semibold">Spotify</p> */}
             </div>
           </Link>
           {/* search input */}
-          <form
-            onSubmit={handleSearch}
-            className="flex-grow sm:w-[500px] md:w-[600px] mx-4"
-          >
-            <input
-              type="text"
-              placeholder="Search tracks,albums or artists..."
-              className=" mx-2 outline-none rounded-xl bg-black text-white shadow-md px-4 py-2 w-full"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          </form>
+          {!details && (
+            <form
+              onSubmit={handleSearch}
+              className="flex-grow sm:w-[500px] md:w-[600px] mx-4"
+            >
+              <input
+                type="text"
+                placeholder="Search tracks,albums or artists..."
+                className=" mx-2 outline-none rounded-xl bg-black text-white shadow-md px-4 py-2 w-full"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </form>
+          )}
 
           <div
             onClick={() => setShowSidebar(!showSidebar)}
@@ -95,6 +96,7 @@ const Header = ({ user, setPlaylists, newReleases }) => {
         user={user}
         setPlaylists={setPlaylists}
         newReleases={newReleases}
+        details={true}
       />
     </>
   );

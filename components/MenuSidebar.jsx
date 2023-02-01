@@ -10,7 +10,13 @@ import { MdRecommend } from "react-icons/md";
 import { RiPlayListFill } from "react-icons/ri";
 import { GiSpinningTop } from "react-icons/gi";
 
-const MenuSidebar = ({ showSidebar, user, setPlaylists, newReleases }) => {
+const MenuSidebar = ({
+  showSidebar,
+  user,
+  setPlaylists,
+  newReleases,
+  details,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   return (
@@ -24,7 +30,9 @@ const MenuSidebar = ({ showSidebar, user, setPlaylists, newReleases }) => {
           <div className="flex flex-col gap-6 mb-6 mt-4 px-4">
             <Link
               href="/"
-              onClick={() => setPlaylists(newReleases)}
+              onClick={() => {
+                !details && setPlaylists(newReleases);
+              }}
               className="flex items-center gap-4 text-lg cursor-pointer"
             >
               <AiFillHome className="text-3xl" /> <p>Home</p>
