@@ -54,7 +54,9 @@ const songSlice = createSlice({
     },
     SONG_ENDED: (state, action) => {
       state.isPlaying = true;
-      state.songIndex = checkIndex(state.songIndex + 1, state);
+      state.songIndex = state.shuffle
+        ? Math.floor(Math.random() * state.currentSongs.length)
+        : checkIndex(state.songIndex + 1, state);
       state.activeSong = state.currentSongs[state.songIndex];
     },
   },
