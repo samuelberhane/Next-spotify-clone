@@ -14,6 +14,9 @@ import AuthForm from "./AuthForm";
 import LoggedCard from "./LoggedCard";
 import PlayPause from "./PlayPause";
 import Player from "./Player";
+import CurrentPlaying from "./CurrentPlaying";
+import Controller from "./Controller";
+import VolumeController from "./VolumeController";
 
 export {
   LoggedCard,
@@ -32,4 +35,7 @@ export {
   AuthForm,
   PlayPause,
   Player,
+  CurrentPlaying,
+  Controller,
+  VolumeController,
 };
