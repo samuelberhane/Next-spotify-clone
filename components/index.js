@@ -11,8 +11,10 @@ import LoggedFeeds from "./LoggedFeeds";
 import Auth from "./Auth";
 import AuthContent from "./AuthContent";
 import AuthForm from "./AuthForm";
+import LoggedCard from "./LoggedCard";
 
 export {
+  LoggedCard,
   Sidebar,
   Header,
   MenuSidebar,

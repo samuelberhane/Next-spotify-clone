@@ -12,8 +12,23 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
+import { options } from "../utils/urlOptions";
+const searchUrl = `https://shazam.p.rapidapi.com/search?term=Pop%20the%20rain&locale=en-US&offset=0&limit=20`;
 
-export default function Home() {
+export async function getServerSideProps() {
+  const playlists = await fetch(
+    "https://shazam.p.rapidapi.com/charts/track?locale=en-US&pageSize=20&startFrom=0",
+    options
+  ).then((data) => data.json());
+
+  return {
+    props: {
+      playlists,
+    },
+  };
+}
+
+export default function Home({ playlists }) {
   const showModal = useSelector(selectShowModal);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -28,7 +43,6 @@ export default function Home() {
     });
   }, []);
 
-  console.log("user", user);
   if (loading) return;
 
   return (
@@ -49,7 +63,7 @@ export default function Home() {
         {/***** User logged out Feeds *****/}
         {!user && <Feeds user={user} />}
 
-        {/* <LoggedFeeds /> */}
+        {user && <LoggedFeeds playlists={playlists?.tracks} />}
 
         {/* Signup Footer Component */}
         {!user && <SignupFooter />}
