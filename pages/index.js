@@ -6,6 +6,7 @@ import {
   SignupFooter,
   SignupModal,
   LoggedFeeds,
+  Player,
 } from "../components";
 import { selectShowModal } from "../redux/slice/authSlice";
 import { useSelector } from "react-redux";
@@ -13,6 +14,8 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { options } from "../utils/urlOptions";
+import { useDispatch } from "react-redux";
+import { FIRST_SONG } from "../redux/slice/songSlice";
 const searchUrl = `https://shazam.p.rapidapi.com/search?term=Pop%20the%20rain&locale=en-US&offset=0&limit=20`;
 
 export async function getServerSideProps() {
@@ -30,8 +33,10 @@ export async function getServerSideProps() {
 
 export default function Home({ playlists }) {
   const showModal = useSelector(selectShowModal);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  console.log("playlists", playlists);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -41,6 +46,7 @@ export default function Home({ playlists }) {
       }
       setLoading(false);
     });
+    dispatch(FIRST_SONG(playlists?.tracks[0]));
   }, []);
 
   if (loading) return;
@@ -63,10 +69,14 @@ export default function Home({ playlists }) {
         {/***** User logged out Feeds *****/}
         {!user && <Feeds user={user} />}
 
+        {/***** User logged in Feeds *****/}
         {user && <LoggedFeeds playlists={playlists?.tracks} />}
 
         {/* Signup Footer Component */}
         {!user && <SignupFooter />}
+
+        {/* Music Player */}
+        {user && <Player />}
 
         {/* Signup Modal */}
         {showModal && <SignupModal />}

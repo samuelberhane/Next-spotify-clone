@@ -1,23 +1,24 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
 import PlayPause from "./PlayPause";
+import { useDispatch } from "react-redux";
+import { PLAY_SONG, PAUSE_SONG } from "../redux/slice/songSlice";
 
 const LoggedCard = ({ playlist, isPlaying, activeSong }) => {
+  const dispatch = useDispatch();
   const {
     title,
     share: { subject },
     images,
   } = playlist;
 
-  //   ${
-  //     activeSong?.title === playlist.title
-  //       ? "flex bg-black bg-opacity-70"
-  //       : "hidden"
-  //   }`
+  const handlePause = () => {
+    dispatch(PAUSE_SONG(playlist));
+  };
 
-  const handlePause = () => {};
-
-  const handlePlay = () => {};
+  const handlePlay = () => {
+    dispatch(PLAY_SONG(playlist));
+  };
   return (
     <>
       {images && (
