@@ -17,6 +17,7 @@ import Player from "./Player";
 import CurrentPlaying from "./CurrentPlaying";
 import Controller from "./Controller";
 import VolumeController from "./VolumeController";
+import Details from "./Details";
 
 export {
   LoggedCard,
@@ -38,4 +39,5 @@ export {
   CurrentPlaying,
   Controller,
   VolumeController,
+  Details,
 };

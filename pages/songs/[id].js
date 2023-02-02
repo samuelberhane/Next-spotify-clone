@@ -2,11 +2,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Header, Sidebar } from "../../components";
+import { Header, Sidebar, Details } from "../../components";
 import { auth } from "../../firebase/config";
+import { options } from "../../utils/urlOptions";
 
 const SongDetails = () => {
   const router = useRouter();
+  const [songDetails, setSongDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const { id } = router.query;
@@ -24,6 +26,19 @@ const SongDetails = () => {
     });
   }, []);
 
+  // fetch details of the song
+  useEffect(() => {
+    const fetchSongDetails = async () => {
+      const fetchDetails = await fetch(
+        `https://shazam.p.rapidapi.com/songs/get-details?key=${id}&locale=en-US`,
+        options
+      );
+      const detailsResponse = await fetchDetails.json();
+      setSongDetails(detailsResponse);
+    };
+    fetchSongDetails();
+  }, [id]);
+
   if (loading || !user) return;
   return (
     <>
@@ -39,6 +54,9 @@ const SongDetails = () => {
 
         {/* Header */}
         <Header user={user} details={true} />
+
+        {/* Details */}
+        <Details songDetails={songDetails} />
       </main>
     </>
   );

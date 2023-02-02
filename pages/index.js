@@ -52,7 +52,6 @@ export default function Home({ newReleases }) {
         );
         const response = await searchResult.json();
         setPlaylists(response);
-        console.log("response", response);
       }
     };
     fetchSearchValue();

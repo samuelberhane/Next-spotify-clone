@@ -10,7 +10,6 @@ const LoggedFeeds = ({ playlists }) => {
   const isPlaying = useSelector(selectIsPlaying);
   const activeSong = useSelector(selectActiveSong);
   const searchValue = useSelector(selectSearchValue);
-  console.log("playlists", playlists);
 
   return (
     <div
