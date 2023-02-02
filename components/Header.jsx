@@ -37,7 +37,7 @@ const Header = ({ user, setPlaylists, newReleases, details }) => {
             </div>
           </Link>
           {/* search input */}
-          {!details && (
+          {!details && user && (
             <form
               onSubmit={handleSearch}
               className="flex-grow sm:w-[500px] md:w-[600px] mx-4"
